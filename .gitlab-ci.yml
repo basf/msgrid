@@ -1,0 +1,12 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: python:$PYTHON_VERSION
+  parallel:
+    matrix:
+      - PYTHON_VERSION: ["3.9", "3.10", "3.11", "3.12"]
+  script:
+    - pip install -e ".[test]"
+    - pytest -q

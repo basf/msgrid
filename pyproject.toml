@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comenze-map"
+dynamic = ["version"]
+description = "MLP (lipophilic) and MEP (electrostatic) potential grids for a single molecule, in pure Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "BSD-3-Clause" }
+authors = [
+    { name = "Miguel Angel Bayo Valero (BASF SE)" },
+    { name = "Dmitry Suplatov (BASF SE)" },
+    { name = "Valerio Ferrario (BASF SE)" },
+]
+dependencies = [
+    "numpy>=1.21",
+]
+
+[project.optional-dependencies]
+pdb2pqr = ["pdb2pqr"]
+test = [
+    "pytest",
+    "gridDataFormats",
+]
+
+[project.scripts]
+MLP = "comenze_map.mlp:main"
+MEP = "comenze_map.mep:main"
+comenze-map = "comenze_map.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "comenze_map.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
