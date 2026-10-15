@@ -1,4 +1,4 @@
-The MLP module of comenze-map is a reimplementation of pyMLP
+The MLP module of msgrid is a reimplementation of pyMLP
 (https://github.com/plantigrade/pyMLP). The original license follows.
 
 Software License Agreement (BSD-new License)

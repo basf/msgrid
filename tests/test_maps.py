@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from comenze_map import Structure, compute_mep, compute_mlp, run_maps
-from comenze_map.mlp import METHODS, assign_fi, get_table, load_logp_file
+from msgrid import Structure, compute_mep, compute_mlp, run_maps
+from msgrid.mlp import METHODS, assign_fi, get_table, load_logp_file
 
 
 def _grid_points(gm):
@@ -221,7 +221,7 @@ def test_buckingham_grid_is_finite(tmp_path):
 
 
 def test_cli_reports_errors_without_traceback(pdb_file, capsys):
-    from comenze_map.cli import main
+    from msgrid.cli import main
 
     assert main([str(pdb_file), "--no-mlp", "--no-mep"]) == 1
     assert "Nothing to do" in capsys.readouterr().err
@@ -231,7 +231,7 @@ def test_cli_reports_errors_without_traceback(pdb_file, capsys):
 
 
 def test_cli_runs_both_maps(pqr_file, tmp_path):
-    from comenze_map.cli import main
+    from msgrid.cli import main
 
     rc = main([str(pqr_file), "-d", str(tmp_path / "out"), "--mlp-spacing", "2", "--mep-spacing", "1.5"])
     assert rc == 0
@@ -240,7 +240,7 @@ def test_cli_runs_both_maps(pqr_file, tmp_path):
 
 
 def test_standalone_tools_report_errors(pdb_file, tmp_path, capsys):
-    from comenze_map import mep, mlp
+    from msgrid import mep, mlp
 
     assert mlp.main(["-f", str(pdb_file), "-o", str(tmp_path / "o.dx"), "-s", "0"]) == 1
     assert "spacing" in capsys.readouterr().err

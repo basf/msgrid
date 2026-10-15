@@ -58,8 +58,8 @@ protonation state used to create the PQR, and so does the MEP.
 
 You can either:
 
-- create the PQR yourself with PDB2PQR and pass it to `MEP` or `comenze-map`, or
-- let `comenze-map` do it with `--pdb2pqr` (needs `pdb2pqr` installed; options `--ff`, `--ph`, `--no-propka`).
+- create the PQR yourself with PDB2PQR and pass it to `MEP` or `msgrid`, or
+- let `msgrid` do it with `--pdb2pqr` (needs `pdb2pqr` installed; options `--ff`, `--ph`, `--no-propka`).
   The generated `<prefix>.pqr` is kept and used for both MLP and MEP. The default force field for the
   conversion is `AMBER`.
 
@@ -100,5 +100,5 @@ These values are used as a sanity check.
 | `--cutoff-factor` | 7 | Cutoff radius in units of `kappa-inv` |
 | `--threads` | 1 | Number of threads (0 = all available) |
 
-Within `comenze-map` the same options are `--mep-spacing`, `--mep-padding`, `--mep-eps`, `--mep-kappa-inv`,
+Within `msgrid` the same options are `--mep-spacing`, `--mep-padding`, `--mep-eps`, `--mep-kappa-inv`,
 `--mep-softening`, `--mep-scale` and `--mep-cutoff-factor`.

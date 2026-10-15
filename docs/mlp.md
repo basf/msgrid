@@ -83,7 +83,7 @@ file is ignored.
 | `--cutoff` | 25.0 | Per-atom cutoff in Å (`fauchere` only) |
 | `--threads` | 1 | Number of threads (0 = all available) |
 
-Within `comenze-map` the same options are `--mlp-table`, `--mlp-logp`, `--mlp-method`, `--mlp-spacing`
+Within `msgrid` the same options are `--mlp-table`, `--mlp-logp`, `--mlp-method`, `--mlp-spacing`
 and `--mlp-cutoff`.
 
 ## References

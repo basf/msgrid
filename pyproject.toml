@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "comenze-map"
+name = "msgrid"
 dynamic = ["version"]
 description = "MLP (lipophilic) and MEP (electrostatic) potential grids for a single molecule, in pure Python"
 readme = "README.md"
@@ -26,12 +26,12 @@ test = [
 ]
 
 [project.scripts]
-MLP = "comenze_map.mlp:main"
-MEP = "comenze_map.mep:main"
-comenze-map = "comenze_map.cli:main"
+MLP = "msgrid.mlp:main"
+MEP = "msgrid.mep:main"
+msgrid = "msgrid.cli:main"
 
 [tool.setuptools.dynamic]
-version = { attr = "comenze_map.__version__" }
+version = { attr = "msgrid.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]

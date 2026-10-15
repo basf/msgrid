@@ -1,11 +1,22 @@
-# comenze-map
+# msgrid
 
-Pure-Python (NumPy only) calculation of two potential maps for a **single molecule**:
+`msgrid` (molecular surface grid) computes physicochemical property maps of a single molecule, typically a
+protein, on a regular 3D grid surrounding it. Two properties are available:
 
-- **MLP** – Molecular Lipophilic Potential
-- **MEP** – Molecular Electrostatic Potential (screened Coulomb)
+- **MLP** – Molecular Lipophilic Potential: where the surface is lipophilic (hydrophobic) or hydrophilic,
+  from per-atom lipophilicity contributions.
+- **MEP** – Molecular Electrostatic Potential (screened Coulomb): where the surface is positively or negatively
+  charged, from the atomic partial charges.
 
-No compiler is needed to install it. A wrapper computes both maps from one parsed structure.
+The input is a PDB or PQR file. Each map is written as an OpenDX (`.dx`) file that can be loaded in molecular
+viewers such as PyMOL, VMD or Chimera, to colour the molecular surface by the property or to display isosurfaces.
+The maps are meant to describe and compare surface patches, for example to analyse hydrophobic or charged
+regions of a protein. A single command computes both maps from the same parsed structure, and the package is
+pure Python (NumPy only), so no compiler is needed to install it.
+
+**More details are available in the [docs](docs/) folder:** the theory, all options and implementation notes
+are described in [docs/mlp.md](docs/mlp.md) (lipophilic potential) and [docs/mep.md](docs/mep.md)
+(electrostatic potential).
 
 ## Installation
 
@@ -21,13 +32,13 @@ readable with `gridData.Grid`.
 ### Wrapper: both maps on the same object
 
 ```bash
-comenze-map protein.pqr                       # -> protein_MLP.dx, protein_MEP.dx
-comenze-map protein.pqr -d out/ -p run1 --threads 8
-comenze-map protein.pdb --no-mep              # MLP only (a PDB has no charges)
+msgrid protein.pqr                       # -> protein_MLP.dx, protein_MEP.dx
+msgrid protein.pqr -d out/ -p run1 --threads 8
+msgrid protein.pdb --no-mep              # MLP only (a PDB has no charges)
 ```
 
 MEP needs atomic charges and radii, so its input must be a PQR file. MLP only uses
-coordinates and atom/residue names, so a PQR works for both. Run `comenze-map -h` for all
+coordinates and atom/residue names, so a PQR works for both. Run `msgrid -h` for all
 `--mlp-*` / `--mep-*` options.
 
 #### Starting from a PDB: PDB2PQR conversion
@@ -38,8 +49,8 @@ protonated, charged structure) for both maps. PDB2PQR is not a hard dependency; 
 is on `PATH`.
 
 ```bash
-comenze-map protein.pdb --pdb2pqr                          # AMBER, pH 7.0, PROPKA
-comenze-map protein.pdb --pdb2pqr --ff CHARMM --ph 6.5 --no-propka
+msgrid protein.pdb --pdb2pqr                          # AMBER, pH 7.0, PROPKA
+msgrid protein.pdb --pdb2pqr --ff CHARMM --ph 6.5 --no-propka
 ```
 
 ```python
@@ -51,7 +62,7 @@ the PQR; the charges (and therefore the MEP) depend on the force field and proto
 The conversion can add hydrogens and rename residues (e.g. `HIS` -> `HIE`), which MLP handles.
 
 ```python
-from comenze_map import run_maps, Structure, compute_mlp, compute_mep
+from msgrid import run_maps, Structure, compute_mlp, compute_mep
 
 run_maps("protein.pqr", prefix="out/protein")          # writes both maps
 s = Structure.from_file("protein.pqr")

@@ -17,7 +17,7 @@ from .mlp_tables import TABLES
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="comenze-map",
+        prog="msgrid",
         description="Compute the MLP (lipophilic) and MEP (electrostatic) maps of a single "
                     "structure. MEP needs charges, so use a PQR input or add --pdb2pqr to convert "
                     "a PDB (MLP works on PDB or PQR).",
