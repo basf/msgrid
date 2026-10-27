@@ -108,13 +108,26 @@ color blue, mep_pos
 color red,  mep_neg
 ```
 
-To colour the molecular surface by the MEP instead:
+To colour the molecular surface from either map, create a ramp from the DX map, assign it to the surface, and
+enable `surface_ramp_above_mode`. This samples the map above the molecular surface, at the solvent-accessible
+surface. Keep `surface_solvent` off; enabling it together with `surface_ramp_above_mode` is not meaningful
+([PyMOL Wiki](https://pymolwiki.org/index.php/Surface_ramp_above_mode)).
 
 ```
-ramp_new mep_ramp, mep, [-5, 0, 5], [red, white, blue]
 show surface, protein
+set surface_ramp_above_mode, 1
+
+# MEP: negative = red, zero = white, positive = blue (kT/e)
+ramp_new mep_ramp, mep, [-20, 0, 20], [red, white, blue]
 set surface_color, mep_ramp, protein
+
+# MLP: negative = cyan, -10 = white, positive = yellow (positive = more lipophilic)
+ramp_new mlp_ramp, mlp, [-25, -10, 5], [cyan, white, yellow]
+set surface_color, mlp_ramp, protein
 ```
+
+The two ramps are alternatives for colouring the same surface; apply the `set surface_color` command for the
+map you want to view.
 
 Useful settings: `set transparency, 0.5, mep_pos` (and likewise for the other objects) to see the atoms through a
 surface, and `isomesh` instead of `isosurface` for a mesh. The standalone `MEP` tool logs the value range of the
